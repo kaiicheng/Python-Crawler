@@ -1,1 +1,53 @@
+import requests
+from pyquery import PyQuery as pq
+from pandas.core.frame import DataFrame
 
+homeRes = requests.get(httpwww.shanghairanking.comShanghairanking-Subject-Rankingsindex.html#)
+homeDoc = pq(homeRes.text)   # No need to use ()
+
+dataList = []
+cateList = homeDoc(#rankingarea  divnth-child(10)  anth-child(2))
+
+ad = httpwww.shanghairanking.comShanghairanking-Subject-Rankings
+ad = ad + cateList.attr(href)
+
+cateRes = requests.get(ad)   # requests
+cateDoc = pq(cateRes.text)    
+nextPgDoc = cateDoc
+
+subject = cateDoc(#rankingarea  span)
+
+subject = str(cateList)
+subject = str(subject)
+subject = subject.split()
+subject = subject[1]
+subject = subject.split()
+subject = subject[0]
+
+sub = cateDoc(#rankingnav  formnth-child(2)  selectnth-child(2))
+for item in sub.items()
+    dataDict={}
+    dataDict[title] = ''
+    dataDict['country'] = ''
+    dataDict['rank'] = ''
+    dataList.append(dataDict)
+
+for i in range(1) # while True
+    item = cateDoc(#UniversityRanking  tr)
+    for eachItemDoc in item.items()
+        dataDict={}
+        if eachItemDoc((tdnth-child(3)  img)).attr(title)!= United States
+            pass
+        else
+            dataDict[title] = eachItemDoc(.left).text()
+            dataDict[country] = eachItemDoc((tdnth-child(3)  img)).attr(title)
+            dataDict[rank] = eachItemDoc(trtdnth-child(1) ).text()    
+            dataList.append(dataDict)
+    if len(item) == 0
+        break
+
+print(subject)
+data=DataFrame(dataList)
+
+#display(data)
+data[150]
